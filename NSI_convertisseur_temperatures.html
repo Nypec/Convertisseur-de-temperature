@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Convertisseur de températures</title>
+	<style type="text/css">
+		html {
+			margin: 2px;
+			background-color: yellow;
+		}
+		body {
+			background-color: pink;
+		}
+		h1 {
+			background-color: purple;
+			border: 2px solid red;
+			text-align: center;
+		}
+		div {
+			border: 2px dashed green;
+			margin: 2px;
+			text-align: center;
+		}
+		.conversion {
+			display : inline-block;
+			width : 500px;
+			border: 1px dashed red;
+			border-radius: 5px;
+			margin: 5px;
+			margin-bottom: 20px;
+		}
+		.valeur {
+			border: 1px solid purple;
+			border-radius: 5px;
+			display: inline-block;
+			width : 250px;
+		}
+	</style>
+</head>
+<body>
+<h1>Convertisseur de températures</h1>
+<div id="page">
+	<div id="saisie"><h2>Zone de saisie</h2>
+		<input type="text" id="entree" size="5">
+		<input type="button" id="button" value="Conversion">
+	</div>
+	<div id="resultats">
+		<h2>Zone de resultats</h2>
+
+<!--	
+		<div class = "conversion">
+			<h3>En Celsius</h3>
+			<span id = "rep_K"></span>
+			<h3>En Fahrenheit</h3>
+			<span id = "rep_F"></span>
+		</div>
+-->
+
+	</div>
+</div>
+<script>
+	console.log('Page chargée')
+
+	function click_button() {
+		alert('Vous venez de cliquer sur le bouton !')
+		saisie = document.getElementById("entree");
+	}
+
+	button = document.getElementById('button');
+	button.addEventListener("click",click_button);
+	button.addEventListener("click",conv_K2C);
+	button.addEventListener("click",convertir);
+
+
+	function affiche_resultat(valeur,info,unite) { 
+		var nv_div = document.createElement("div");
+
+		var texte_info = document.createElement("h3");
+		texte_info.innerHTML = info;
+
+		var texte_valeur = document.createElement("span");
+		texte_valeur.innerHTML = valeur.toFixed(2);
+
+		var texte_unite = document.createElement("a");
+		texte_unite.innerHTML = unite;
+
+		nv_div.appendChild(texte_info);
+		nv_div.appendChild(texte_valeur);
+		texte_valeur.appendChild(texte_unite);
+
+		var div_pere = document.getElementById("resultats");
+		div_pere.appendChild(nv_div);
+
+		nv_div.setAttribute("class","conversion");
+		texte_valeur.setAttribute("class","valeur");
+	}
+
+	function convertir() {
+				
+		affiche_resultat(conv_K2F(saisie.value), saisie.value + " Kelvin en Fahrenheit", " °F")
+		affiche_resultat(conv_K2C(saisie.value), saisie.value + " Kelvin en Celsius", " °C")
+		affiche_resultat(conv_K2R(saisie.value), saisie.value + " Kelvin en Rankine", " °R")
+
+		affiche_resultat(conv_C2F(saisie.value), saisie.value + " Celsius en Fahrenheit", " °F")
+		affiche_resultat(conv_C2K(saisie.value), saisie.value + " Celsius en Kelvin", " °K")
+		affiche_resultat(conv_C2R(saisie.value), saisie.value + " Celsius en Rankine", " °R")
+
+		affiche_resultat(conv_F2K(saisie.value), saisie.value + " Fahrenheit en Rankine", " °K")
+		affiche_resultat(conv_F2C(saisie.value), saisie.value + " Fahrenheit en Celsius", " °C")
+		affiche_resultat(conv_F2R(saisie.value), saisie.value + " Fahrenheit en Rankine", " °R")
+
+		affiche_resultat(conv_R2F(saisie.value), saisie.value + " Rankine en Fahrenheit", " °F")
+		affiche_resultat(conv_R2C(saisie.value), saisie.value + " Rankine en Celsius", " °C")
+		affiche_resultat(conv_R2K(saisie.value), saisie.value + " Rankine en Kelvin", " °K")
+		
+	}
+
+	function conv_K2C(t) {
+		K2C_result = parseFloat(t) - 273.15
+        return K2C_result;
+	}
+	function conv_K2F(t) {
+		K2F_result = (parseFloat(t) - 273.15) * 9/5 + 32
+    	return K2F_result;
+	}
+	function conv_K2R(t) {
+		K2R_result = parseFloat(t) * 1.8
+        return K2R_result;
+	}
+	function conv_C2F(t){
+		C2F_result = (parseFloat(t) * 9/5) + 32
+        return C2F_result;
+	}
+	function conv_C2K(t){
+		C2K_result = parseFloat(t) + 273.15
+        return C2K_result;
+	}
+	function conv_C2R(t){
+		C2R_result = parseFloat(t) * 9/5 + 491.67
+        return C2R_result;
+	}
+	function conv_F2K(t){
+		F2K_result = (parseFloat(t) - 32) * 5/9 + 273.15
+        return F2K_result;
+	}
+	function conv_F2C(t){
+		F2C_result = (parseFloat(t) - 32) * 5/9
+        return F2C_result;
+	}
+	function conv_F2R(t){
+		F2R_result = parseFloat(t) + 459.67
+        return F2R_result;
+	}
+	function conv_R2F(t){
+		R2F_result = parseFloat(t) - 459.67
+        return R2F_result;
+	}						
+	function conv_R2C(t){
+		R2C_result = (parseFloat(t) - 491,67) * 5/9
+        return R2C_result;
+	}
+	function conv_R2K(t){
+		R2K_result = parseFloat(t) * 5/9
+        return R2K_result;
+	}
+
+
+
+</script>
+</body>
+</html> 
